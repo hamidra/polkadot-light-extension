@@ -1,0 +1,46 @@
+{
+  "author": "Parity Team <admin@parity.io>",
+  "description": "Browser extension to manage polkadot signing accounts as well as blockchain light clients",
+  "homepage_url": "https://github.com/paritytech/polkadot-lite-extnesion",
+  "name": "Polkadot Lite Extension",
+  "short_name": "Polkadot-Lite-Extension",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "permissions": ["notifications", "storage", "tabs", "alarms"],
+  "options_page": "src/options/index.html",
+  "background": {
+    "service_worker": "src/background/index.js"
+  },
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_icon": "icon-34.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "src/newtab/index.html"
+  },
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content/index.js"
+      ]
+    }
+  ],
+  "devtools_page": "src/devtools/index.html",
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icon-128.png",
+        "icon-34.png"
+      ],
+      "matches": []
+    }
+  ]
+}
