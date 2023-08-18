@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Tailwind
 
 This repo currently includes a minimal scaffold to build a Web Extension on React + Tailwind in Vite. 
 
