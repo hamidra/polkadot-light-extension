@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - hamidra/ci
+      - main
 jobs:
   check:
     runs-on: ubuntu-latest
