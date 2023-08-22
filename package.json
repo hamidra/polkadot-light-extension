@@ -9,11 +9,11 @@
     "start": "web-ext run --source-dir ./dist -t chromium",
     "fix:format": "prettier -w ./src",
     "fix:lint": "eslint ./src --fix",
-    "fix:all":"pnpm fix:format && pnpm fix:lint",
+    "fix:all": "pnpm fix:format && pnpm fix:lint",
     "check:format": "prettier -c ./src",
     "check:lint": "eslint ./src",
     "check:tsc": "tsc --noEmit",
-    "check:all":"pnpm check:format && pnpm check:lint && pnpm check:tsc"
+    "check:all": "pnpm check:format && pnpm check:lint && pnpm check:tsc"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -21,11 +21,11 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.243",
-    "@types/node": "^20.5.0",
-    "@types/react": "^18.2.20",
+    "@types/node": "^20.5.3",
+    "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "@typescript-eslint/parser": "^6.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.15",
     "eslint": "^8.47.0",
