@@ -1,30 +1,36 @@
-# React + TypeScript + Vite + Tailwind
-
-This repo currently includes a minimal scaffold to build a Web Extension on React + Tailwind in Vite. 
-
-This uses official Vite react-swc plugin to build react.
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Polkadot-Lite-Extension
 
 ## Getting Started
 
 1. Clone the repository.
 2. Install the dependencies.
 
+   ```zsh
+   pnpm install
+   ```
+
+3. Run `dev` process:
+
+   ```zsh
+   pnpm dev
+   ```
+
+This will create the extension's output files in the `./apps/extension/dist` directory.
+
+## Run the Extension
+
+### Use Extension in a Temporary Browser Session
+
+Use the following command to start a temporary chromium browser session with the local version of the extension.
+
 ```zsh
-pnpm install
-```
-## Build the Extension:
-1. Run the build command.
-```zsh 
-pnpm build
-```
-This will create the extension's output files in the ```./dist``` directory.
-
-
-## Run the Extensioon:
-1. Run the start command.
-```zsh 
-pnpm start 
+pnpm extension:start
 ```
 
-This will open a Chrome browser in extension developer mode and load the extension source package.
+### Install Extension in Your Browser
+
+1. Open your browser's Extensions page
+2. Enable "Developer mode" in the top right corner
+3. Click "Load unpacked" in the top left corner
+4. Select the `./apps/extension/dist` folder
+5. You're good to go! 🎉 The extension is now permanently available in your browser.
