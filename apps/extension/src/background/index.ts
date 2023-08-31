@@ -1,1 +1,1 @@
-console.log("background loaded");
+console.info("background loaded");
