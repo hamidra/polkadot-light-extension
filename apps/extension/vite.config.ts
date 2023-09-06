@@ -19,6 +19,7 @@ export default defineConfig({
   publicDir,
   build: {
     outDir,
+    sourcemap: true,
     rollupOptions: {
       input: {
         content: resolve(src, "content", "index.ts"),
@@ -31,5 +32,8 @@ export default defineConfig({
         entryFileNames: (chunk) => `src/${chunk.name}/index.js`,
       },
     },
+  },
+  define: {
+    "import.meta.vitest": "undefined",
   },
 });

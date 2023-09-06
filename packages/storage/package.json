@@ -1,0 +1,23 @@
+{
+  "name": "storage",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.244",
+    "@types/firefox-webext-browser": "^111.0.1",
+    "@types/node": "^20.5.7",
+    "@types/store": "^2.0.2",
+    "eslint-config-custom": "workspace:*",
+    "tailwindcss": "^3.3.3",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.3"
+  }
+}

@@ -6,13 +6,17 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "types:check": "turbo run tsc",
     "format:check": "prettier . --check",
     "format:fix": "prettier . --write",
     "extension:start": "pnpm --filter extension start"
   },
   "devDependencies": {
-    "eslint": "^8.47.0",
-    "prettier": "^3.0.2",
-    "turbo": "latest"
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "turbo": "latest",
+    "vitest": "^0.34.3"
   }
 }
