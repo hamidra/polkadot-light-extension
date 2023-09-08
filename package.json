@@ -11,7 +11,8 @@
     "types:check": "turbo run tsc",
     "format:check": "prettier . --check",
     "format:fix": "prettier . --write",
-    "extension:start": "pnpm --filter extension start"
+    "extension:start": "pnpm --filter extension start",
+    "shadcn-ui": "pnpm --filter ui shadcn-ui"
   },
   "devDependencies": {
     "eslint": "^8.48.0",
