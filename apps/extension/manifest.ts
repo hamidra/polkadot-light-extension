@@ -22,6 +22,10 @@ export const manifest = defineManifest(() => ({
   options_page: "src/options/index.html",
   background: {
     service_worker: "src/background/index.ts",
+    type: "module",
+  },
+  content_security_policy: {
+    extension_pages: "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';",
   },
   action: {
     default_popup: "src/popup/index.html",

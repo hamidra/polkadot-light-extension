@@ -1,6 +1,6 @@
-import type { PJSSingleAccountV3 } from "storage/formats/PJSSingleAccount";
-import { ChevronRight, Trash2 } from "lucide-react";
+import { Import, Plus, Trash2 } from "lucide-react";
 import * as storage from "storage";
+import type { PJSSingleAccountV3 } from "storage/formats/PJSSingleAccount";
 import {
   Button,
   CardContent,
@@ -10,20 +10,30 @@ import {
   CardTitle,
 } from "ui";
 
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const Page = () => {
   const navigate = useNavigate();
   const [accounts, setAccounts] = useState<PJSSingleAccountV3[]>([]);
 
-  useEffect(() => {
-    storage.getAccounts().then(setAccounts);
-  }, [setAccounts]);
+  const fetchAccounts = useCallback(() => {
+    storage.getAccounts().then((accounts) => {
+      if (accounts.length === 0) navigate("/");
+      setAccounts(accounts);
+    });
+  }, [navigate]);
+
+  const removeAccount = (address: string) => {
+    storage.forgetAccount(address).then(fetchAccounts);
+  };
 
   const removeAllAccounts = () => {
-    storage.clearStorage().then(() => navigate("/"));
+    Promise.all(
+      accounts.map((account) => storage.forgetAccount(account.address)),
+    ).then(() => navigate("/"));
   };
+  useEffect(fetchAccounts, [fetchAccounts]);
 
   return (
     <div className={"h-auto w-full"}>
@@ -33,7 +43,10 @@ const Page = () => {
       </CardHeader>
       <CardContent className="grid gap-4">
         {accounts.map((account) => (
-          <div className=" flex items-center space-x-4 rounded-md border p-4">
+          <div
+            className=" flex items-center space-x-4 rounded-md border p-4"
+            onClick={() => storage.forgetAccount(account.address)}
+          >
             <div className="flex-1 space-y-1">
               <p className="text-sm font-medium leading-none">
                 {account.meta.name}
@@ -42,9 +55,28 @@ const Page = () => {
                 {account.address.slice(0, 8)}...{account.address.slice(-8)}
               </p>
             </div>
-            <ChevronRight />
+            <Button
+              onClick={() => removeAccount(account.address)}
+              variant="outline"
+              size="icon"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
           </div>
         ))}
+        <div className="grid w-full grid-cols-2 gap-6">
+          <Button className="w-full" variant="outline" disabled>
+            <Plus className="mr-2 h-4 w-4" /> New Account
+          </Button>
+
+          <Button
+            onClick={() => navigate("/import")}
+            variant="outline"
+            className="w-full"
+          >
+            <Import className="mr-2 h-4 w-4" /> Import
+          </Button>
+        </div>
       </CardContent>
       <CardFooter>
         <Button className="w-full" onClick={removeAllAccounts}>
