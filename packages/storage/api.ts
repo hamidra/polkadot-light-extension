@@ -1,8 +1,9 @@
-import { KeyringPair$Json } from "@polkadot/keyring/types";
-import keyring from "@polkadot/ui-keyring";
-import { KeyringAddress } from "@polkadot/ui-keyring/types";
-import { AccountsStore } from "./AccountsStore";
-import { PJSSingleAccountV3 } from "./formats";
+import { KeyringPair$Json } from '@polkadot/keyring/types';
+import keyring from '@polkadot/ui-keyring';
+import { KeyringAddress } from '@polkadot/ui-keyring/types';
+
+import { AccountsStore } from './AccountsStore';
+import { PJSSingleAccountV3 } from './formats';
 
 let isInitialized: boolean = false;
 let isInitializing: boolean = false;
@@ -22,7 +23,7 @@ const initStorage = async (): Promise<void> => {
 
   keyring.loadAll({
     store: new AccountsStore(),
-    type: "sr25519",
+    type: 'sr25519',
   });
 
   isInitialized = true;
@@ -33,10 +34,7 @@ const initStorage = async (): Promise<void> => {
 // different context than popup.ts so it's not initialized there.
 initStorage();
 
-const importAccount = async (
-  exportedAccount: PJSSingleAccountV3,
-  password: string,
-) => {
+const importAccount = async (exportedAccount: PJSSingleAccountV3, password: string) => {
   const data: KeyringPair$Json = exportedAccount as KeyringPair$Json;
   return keyring.restoreAccount(data, password);
 };

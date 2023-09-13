@@ -1,1 +1,1 @@
-console.info("content loaded");
+console.info('content loaded');

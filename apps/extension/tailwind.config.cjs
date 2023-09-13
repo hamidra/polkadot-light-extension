@@ -1,2 +1,2 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = require("ui/tailwind.config");
+module.exports = require('ui/tailwind.config');

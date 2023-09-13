@@ -1,1 +1,1 @@
-export * from "./PJSSingleAccount";
+export * from './PJSSingleAccount';

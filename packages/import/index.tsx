@@ -1,11 +1,11 @@
-import PolkadotJSExtension from "./PolkadotJSExtension";
+import PolkadotJSExtension from './PolkadotJSExtension';
 
 export interface ImportFormProps {
   onSuccess?: () => void;
 }
 const Page = ({ onSuccess }: ImportFormProps) => {
   return (
-    <div className={"h-auto w-full"}>
+    <div className={'h-auto w-full'}>
       <PolkadotJSExtension onSuccess={onSuccess} />
     </div>
   );

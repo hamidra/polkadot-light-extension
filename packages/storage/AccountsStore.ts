@@ -1,11 +1,10 @@
 // TODO copied from here: https://github.com/polkadot-js/extension/blob/master/packages/extension-base/src/stores/Accounts.ts
 // to remove direct dependency to extension-base, which resulted in a `process.env` undefined error.
 // Should be solve differently at some point.
-
 // Copyright 2019-2023 @polkadot/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
+import type { KeyringJson, KeyringStore } from '@polkadot/ui-keyring/types';
 
-import type { KeyringJson, KeyringStore } from "@polkadot/ui-keyring/types";
 type StoreValue = Record<string, unknown>;
 
 const lastError = (type: string): void => {
@@ -20,7 +19,7 @@ export abstract class BaseStore<T> {
   #prefix: string;
 
   constructor(prefix: string | null) {
-    this.#prefix = prefix ? `${prefix}:` : "";
+    this.#prefix = prefix ? `${prefix}:` : '';
   }
 
   public all(update: (key: string, value: T) => void): void {
@@ -33,7 +32,7 @@ export abstract class BaseStore<T> {
 
   public allMap(update: (value: Record<string, T>) => void): void {
     chrome.storage.local.get(null, (result: StoreValue): void => {
-      lastError("all");
+      lastError('all');
 
       const entries = Object.entries(result);
       const map: Record<string, T> = {};
@@ -42,7 +41,7 @@ export abstract class BaseStore<T> {
         const [key, value] = entries[i];
 
         if (key.startsWith(this.#prefix)) {
-          map[key.replace(this.#prefix, "")] = value as T;
+          map[key.replace(this.#prefix, '')] = value as T;
         }
       }
 
@@ -54,7 +53,7 @@ export abstract class BaseStore<T> {
     const prefixedKey = `${this.#prefix}${key}`;
 
     chrome.storage.local.get([prefixedKey], (result: StoreValue): void => {
-      lastError("get");
+      lastError('get');
 
       update(result[prefixedKey] as T);
     });
@@ -64,7 +63,7 @@ export abstract class BaseStore<T> {
     const prefixedKey = `${this.#prefix}${key}`;
 
     chrome.storage.local.remove(prefixedKey, (): void => {
-      lastError("remove");
+      lastError('remove');
 
       update && update();
     });
@@ -74,28 +73,21 @@ export abstract class BaseStore<T> {
     const prefixedKey = `${this.#prefix}${key}`;
 
     chrome.storage.local.set({ [prefixedKey]: value }, (): void => {
-      lastError("set");
+      lastError('set');
 
       update && update();
     });
   }
 }
 
-export class AccountsStore
-  extends BaseStore<KeyringJson>
-  implements KeyringStore
-{
+export class AccountsStore extends BaseStore<KeyringJson> implements KeyringStore {
   constructor() {
-    super("accounts");
+    super('accounts');
   }
 
-  public override set(
-    key: string,
-    value: KeyringJson,
-    update?: () => void,
-  ): void {
+  public override set(key: string, value: KeyringJson, update?: () => void): void {
     // shortcut, don't save testing accounts in extension storage
-    if (key.startsWith("account:") && value.meta && value.meta.isTesting) {
+    if (key.startsWith('account:') && value.meta && value.meta.isTesting) {
       update && update();
 
       return;

@@ -1,13 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "ui/global.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import 'ui/global.css';
 
 export const initElement = (page: JSX.Element) => {
-  const appContainer = document.querySelector("#app-container");
+  const appContainer = document.querySelector('#app-container');
   if (!appContainer) {
-    throw new Error("Can not find AppContainer");
+    throw new Error('Can not find AppContainer');
   }
-  ReactDOM.createRoot(appContainer).render(
-    <React.StrictMode>{page}</React.StrictMode>,
-  );
+  ReactDOM.createRoot(appContainer).render(<React.StrictMode>{page}</React.StrictMode>);
 };

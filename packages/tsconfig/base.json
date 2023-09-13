@@ -17,11 +17,7 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "types": [
-      "@types/chrome",
-      "@types/firefox-webext-browser",
-      "vitest/importMeta"
-    ]
+    "types": ["@types/chrome", "@types/firefox-webext-browser", "vitest/importMeta"]
   },
   "exclude": ["node_modules"]
 }
