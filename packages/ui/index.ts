@@ -1,9 +1,9 @@
-export * from './components/ui/button';
-export * from './components/ui/card';
-export * from './components/ui/checkbox';
-export * from './components/ui/input';
-export * from './components/ui/label';
-export * from './components/ui/switch';
-export * from './components/ui/form';
+export * from './components/button';
+export * from './components/card';
+export * from './components/checkbox';
+export * from './components/form';
+export * from './components/input';
+export * from './components/label';
+export * from './components/switch';
 
 export * from './utils';
