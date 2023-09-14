@@ -25,7 +25,7 @@ const Page = () => {
         <CardDescription>A light client first wallet</CardDescription>
       </CardHeader>
       <CardContent className='grid gap-4'>
-        <Button className='w-full' disabled>
+        <Button onClick={() => navigate('create')} className='w-full'>
           <Plus className='mr-2 h-4 w-4' /> Create new Wallet
         </Button>
         <div className='relative'>

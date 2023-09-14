@@ -49,7 +49,7 @@ const Page = () => {
           </div>
         ))}
         <div className='grid w-full grid-cols-2 gap-6'>
-          <Button className='w-full' variant='outline' disabled>
+          <Button onClick={() => navigate('/create')} className='w-full' variant='outline'>
             <Plus className='mr-2 h-4 w-4' /> New Account
           </Button>
 

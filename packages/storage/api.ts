@@ -1,6 +1,7 @@
 import { KeyringPair$Json } from '@polkadot/keyring/types';
 import keyring from '@polkadot/ui-keyring';
 import { KeyringAddress } from '@polkadot/ui-keyring/types';
+import { mnemonicGenerate } from '@polkadot/util-crypto';
 
 import { AccountsStore } from './AccountsStore';
 import { PJSSingleAccountV3 } from './formats';
@@ -39,6 +40,10 @@ const importAccount = async (exportedAccount: PJSSingleAccountV3, password: stri
   return keyring.restoreAccount(data, password);
 };
 
+const createAccount = async (mnemonic: string, password: string) => {
+  return keyring.addUri(mnemonic, password, { name: 'mnemonic account' }).pair;
+};
+
 const getAccounts = async (): Promise<Array<KeyringAddress>> => {
   return keyring.getAccounts();
 };
@@ -47,4 +52,4 @@ export const forgetAccount = async (address: string): Promise<void> => {
   keyring.forgetAccount(address);
 };
 
-export { getAccounts, importAccount, initStorage };
+export { createAccount, mnemonicGenerate as generateMnemonic, getAccounts, importAccount, initStorage };

@@ -1,3 +1,4 @@
+import CreatePage from 'create';
 import ImportPage from 'import';
 import { HashRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,16 @@ const NavigatedApp = () => {
       <Route element={<Layout />}>
         <Route path='/' element={<WelcomePage />} />
         <Route path='accounts' element={<AccountsPage />} />
+        <Route
+          path='create'
+          element={
+            <CreatePage
+              onSuccess={() => {
+                navigate('/');
+              }}
+            />
+          }
+        />
         <Route
           path='import'
           element={
