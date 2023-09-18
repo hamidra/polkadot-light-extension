@@ -24,10 +24,11 @@ export interface CreateFormProps {
 
 const formSchema = z
   .object({
-    password: z.string().min(8),
+    password: z.string().min(8, 'Password must be at least 8 characters long'),
     passwordConfirmation: z.string(),
   })
   .refine(({ password, passwordConfirmation }) => password == passwordConfirmation, {
+    path: ['passwordConfirmation'],
     message: "Password confirmation doesn't match",
   });
 
@@ -37,6 +38,7 @@ const Card = ({ onSuccess }: CreateFormProps) => {
   const [error, setError] = useState<string>();
   const [mnemonic, setMnemonic] = useState<string>();
   const form = useForm<FormData>({
+    mode: 'onChange',
     resolver: zodResolver(formSchema),
   });
 
@@ -73,7 +75,7 @@ const Card = ({ onSuccess }: CreateFormProps) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input autoFocus type='password' {...field} {...form.register('password', { required: true })} />
+                    <Input autoFocus type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,13 +88,7 @@ const Card = ({ onSuccess }: CreateFormProps) => {
                 <FormItem>
                   <FormLabel>Password Confirmation</FormLabel>
                   <FormControl>
-                    <Input
-                      type='password'
-                      {...field}
-                      {...form.register('passwordConfirmation', {
-                        required: true,
-                      })}
-                    />
+                    <Input type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
