@@ -40,6 +40,10 @@ const Card = ({ onSuccess }: CreateFormProps) => {
   const form = useForm<FormData>({
     mode: 'onChange',
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      password: '',
+      passwordConfirmation: '',
+    },
   });
 
   useEffect(() => setMnemonic(generateMnemonic(12)), []);

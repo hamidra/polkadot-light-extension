@@ -10,6 +10,7 @@ const Page = () => {
   const [accounts, setAccounts] = useState<PJSSingleAccountV3[]>([]);
 
   useEffect(() => {
+    // @ts-expect-error: should be fixed with https://github.com/paritytech/polkadot-lite-extension/pull/39
     storage.getAccounts().then(setAccounts);
   }, [setAccounts]);
   useEffect(() => {

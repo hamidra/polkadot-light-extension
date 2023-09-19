@@ -14,8 +14,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    // ToDo: enable strictNullChecks when [this issue](https://github.com/paritytech/polkadot-lite-extension/issues/43) is resolved.
-    "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],

@@ -12,6 +12,7 @@ const Page = () => {
   const fetchAccounts = useCallback(() => {
     storage.getAccounts().then((accounts) => {
       if (accounts.length === 0) navigate('/');
+      // @ts-expect-error: should be fixed with https://github.com/paritytech/polkadot-lite-extension/pull/39
       setAccounts(accounts);
     });
   }, [navigate]);
@@ -34,6 +35,7 @@ const Page = () => {
       <CardContent className='grid gap-4'>
         {accounts.map((account) => (
           <div
+            key={account.address}
             className=' flex items-center space-x-4 rounded-md border p-4'
             onClick={() => storage.forgetAccount(account.address)}
           >

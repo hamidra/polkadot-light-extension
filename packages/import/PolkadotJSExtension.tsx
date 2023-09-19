@@ -30,9 +30,13 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const PolkadotJSExtension = ({ onSuccess }: ImportFormProps) => {
-  const form = useForm({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      password: '',
+    },
   });
+
   const watchFile: FileList = form.watch('file', []);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
