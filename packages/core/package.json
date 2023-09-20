@@ -1,0 +1,25 @@
+{
+  "name": "core",
+  "version": "0.0.0",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "types": "./index.ts",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\"",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@polkadot/keyring": "^12.4.2",
+    "@polkadot/util-crypto": "^12.4.2",
+    "storage": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.243",
+    "@types/firefox-webext-browser": "^111.0.1",
+    "@types/node": "^20.5.7",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2"
+  }
+}

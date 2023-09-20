@@ -2,14 +2,14 @@
   "name": "ui",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint .",
-    "shadcn-ui": "pnpm dlx shadcn-ui"
-  },
   "exports": {
     ".": "./index.ts",
     "./global.css": "./styles/global.css",
     "./tailwind.config": "./tailwind.config.cjs"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "shadcn-ui": "pnpm dlx shadcn-ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",

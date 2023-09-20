@@ -11,8 +11,21 @@ const outDir = resolve(__dirname, 'dist');
 const publicDir = resolve(__dirname, 'public');
 
 export default defineConfig(({ command }) => {
+  const commonConfig = {
+    // This is added to fix issue with store.js, which is a dependency of ui-keyring.
+    // Can be removed when we remove dependency to ui-keyring.
+    optimizeDeps: {
+      esbuildOptions: {
+        // Node.js global to browser globalThis
+        define: {
+          global: 'globalThis',
+        },
+      },
+    },
+  };
   if (command === 'serve') {
     return {
+      ...commonConfig,
       server: {
         port: 8000,
         hmr: {
@@ -24,6 +37,7 @@ export default defineConfig(({ command }) => {
     };
   } else {
     return {
+      ...commonConfig,
       plugins: [react(), crx({ manifest }), tsconfigPaths()],
       publicDir,
       build: {

@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getRpcClient } from 'core';
 import { Import } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { importAccount } from 'storage';
 import { PJSSingleAccountV3Schema } from 'storage/formats';
 import {
   Button,
@@ -30,6 +30,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const PolkadotJSExtension = ({ onSuccess }: ImportFormProps) => {
+  const internalRpc = getRpcClient();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,7 +46,8 @@ const PolkadotJSExtension = ({ onSuccess }: ImportFormProps) => {
       .then(JSON.parse)
       .then((exportedAccount: string) => {
         const validAccountData = PJSSingleAccountV3Schema.parse(exportedAccount);
-        importAccount(validAccountData, data.password)
+        internalRpc
+          .importPJSAccount(validAccountData, data.password)
           .then(() => {
             if (onSuccess) onSuccess();
           })

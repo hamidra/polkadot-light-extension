@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getRpcClient } from 'core';
 import { Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { createAccount, generateMnemonic } from 'storage';
+import { generateMnemonic } from 'storage';
 import {
   Button,
   CardContent,
@@ -37,6 +38,7 @@ type FormData = z.infer<typeof formSchema>;
 const Card = ({ onSuccess }: CreateFormProps) => {
   const [error, setError] = useState<string>();
   const [mnemonic, setMnemonic] = useState<string>();
+  const internalRpc = getRpcClient();
   const form = useForm<FormData>({
     mode: 'onChange',
     resolver: zodResolver(formSchema),
@@ -49,7 +51,8 @@ const Card = ({ onSuccess }: CreateFormProps) => {
   useEffect(() => setMnemonic(generateMnemonic(12)), []);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    createAccount(mnemonic!, data.password)
+    internalRpc
+      .createAccountFromSeed(mnemonic!, data.password, 'Mnemonic Account')
       .then(() => {
         if (onSuccess) onSuccess();
       })

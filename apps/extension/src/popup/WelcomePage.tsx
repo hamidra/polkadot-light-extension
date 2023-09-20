@@ -1,17 +1,16 @@
+import { getRpcClient } from 'core';
+import { InjectedAccount } from 'core';
 import { Import, Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as storage from 'storage';
-import type { PJSSingleAccountV3 } from 'storage/formats/PJSSingleAccount';
 import { Button, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'ui';
 
 const Page = () => {
   const navigate = useNavigate();
-  const [accounts, setAccounts] = useState<PJSSingleAccountV3[]>([]);
-
+  const [accounts, setAccounts] = useState<InjectedAccount[]>([]);
+  const internalRpc = getRpcClient();
   useEffect(() => {
-    // @ts-expect-error: should be fixed with https://github.com/paritytech/polkadot-lite-extension/pull/39
-    storage.getAccounts().then(setAccounts);
+    internalRpc.listAccounts().then(setAccounts);
   }, [setAccounts]);
   useEffect(() => {
     if (accounts.length > 0) {

@@ -1,29 +1,30 @@
+import type { InjectedAccount } from 'core';
+import { getRpcClient } from 'core';
 import { Import, Plus, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as storage from 'storage';
-import type { PJSSingleAccountV3 } from 'storage/formats/PJSSingleAccount';
 import { Button, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'ui';
 
 const Page = () => {
   const navigate = useNavigate();
-  const [accounts, setAccounts] = useState<PJSSingleAccountV3[]>([]);
-
+  const [accounts, setAccounts] = useState<InjectedAccount[]>([]);
+  const internalRpc = getRpcClient();
   const fetchAccounts = useCallback(() => {
-    storage.getAccounts().then((accounts) => {
+    internalRpc.listAccounts().then((accounts) => {
       if (accounts.length === 0) navigate('/');
-      // @ts-expect-error: should be fixed with https://github.com/paritytech/polkadot-lite-extension/pull/39
       setAccounts(accounts);
     });
   }, [navigate]);
 
   const removeAccount = (address: string) => {
-    storage.forgetAccount(address).then(fetchAccounts);
+    internalRpc.forgetAccounts([address]).then(fetchAccounts);
   };
 
   const removeAllAccounts = () => {
-    Promise.all(accounts.map((account) => storage.forgetAccount(account.address))).then(() => navigate('/'));
+    const addresses = accounts.map((account) => account.address);
+    internalRpc.forgetAccounts(addresses).then(() => navigate('/'));
   };
+
   useEffect(fetchAccounts, [fetchAccounts]);
 
   return (
@@ -35,12 +36,12 @@ const Page = () => {
       <CardContent className='grid gap-4'>
         {accounts.map((account) => (
           <div
-            key={account.address}
+            key={`account_${account.address}`}
             className=' flex items-center space-x-4 rounded-md border p-4'
-            onClick={() => storage.forgetAccount(account.address)}
+            onClick={() => internalRpc.forgetAccounts([account.address])}
           >
             <div className='flex-1 space-y-1'>
-              <p className='text-sm font-medium leading-none'>{account.meta.name}</p>
+              <p className='text-sm font-medium leading-none'>{account.name}</p>
               <p className='text-muted-foreground overflow-hidden text-ellipsis text-sm'>
                 {account.address.slice(0, 8)}...{account.address.slice(-8)}
               </p>
