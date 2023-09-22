@@ -16,20 +16,17 @@ export const manifest = defineManifest(() => ({
   version_name: version,
   manifest_version: 3,
   permissions: ['notifications', 'storage', 'tabs', 'alarms'],
-  options_page: 'src/options/index.html',
+  options_page: 'options/index.html',
   background: {
-    service_worker: 'src/background/index.ts',
+    service_worker: 'background/index.ts',
     type: 'module',
   },
   content_security_policy: {
     extension_pages: "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';",
   },
   action: {
-    default_popup: 'src/popup/index.html',
+    default_popup: 'popup/index.html',
     default_icon: 'icon-34.png',
-  },
-  chrome_url_overrides: {
-    newtab: 'src/newtab/index.html',
   },
   icons: {
     '128': 'icon-128.png',
@@ -37,7 +34,7 @@ export const manifest = defineManifest(() => ({
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      js: ['src/content/index.ts'],
+      js: ['content/index.ts'],
     },
   ],
   web_accessible_resources: [

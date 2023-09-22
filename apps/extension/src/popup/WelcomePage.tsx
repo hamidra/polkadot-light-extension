@@ -25,7 +25,16 @@ const Page = () => {
         <CardDescription>A light client first wallet</CardDescription>
       </CardHeader>
       <CardContent className='grid gap-4'>
-        <Button onClick={() => navigate('create')} className='w-full'>
+        <Button
+          // disabled until the create account form is moved
+          // onClick={() => {
+          //   chrome.tabs.create({
+          //     url: 'index.html/#/manage-accounts/create-account/',
+          //   });
+          // }}
+          onClick={() => navigate('create')}
+          className='w-full'
+        >
           <Plus className='mr-2 h-4 w-4' /> Create new Wallet
         </Button>
         <div className='relative'>
@@ -36,7 +45,16 @@ const Page = () => {
             <span className='bg-background text-muted-foreground px-2'>Or continue with</span>
           </div>
         </div>
-        <Button onClick={() => navigate('import')} className='w-full'>
+        <Button
+          // disabled until the import form is moved
+          // onClick={() => {
+          //   chrome.tabs.create({
+          //     url: 'index.html',
+          //   });
+          // }}
+          onClick={() => navigate('import')}
+          className='w-full'
+        >
           <Import className='mr-2 h-4 w-4' /> Import existing Wallet
         </Button>
       </CardContent>
