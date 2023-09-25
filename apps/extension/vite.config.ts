@@ -31,11 +31,13 @@ export default defineConfig(() => {
         },
       },
     },
-    esbuildOptions: {
-      // This is added to fix issue with store.js, which is a dependency of ui-keyring.
-      // Can be removed when we remove dependency to ui-keyring.
-      define: {
-        global: 'globalThis',
+    optimizeDeps: {
+      esbuildOptions: {
+        // This is added to fix issue with store.js, which is a dependency of ui-keyring.
+        // Can be removed when we remove dependency to ui-keyring.
+        define: {
+          global: 'globalThis',
+        },
       },
     },
     define: {
