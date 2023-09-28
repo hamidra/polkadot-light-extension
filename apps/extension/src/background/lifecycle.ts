@@ -10,19 +10,19 @@ export class LifeCycle {
     LifeCycle.waitingForInit.map((resolve) => {
       resolve(true);
     });
-    // rest queue
+    // reset queue
     LifeCycle.waitingForInit = [];
   }
   static async initialize() {
     LifeCycle.state = 'initializing';
-    // Initialize storage
+    // initialize storage
     await initStorage();
     LifeCycle.state = 'initialized';
     LifeCycle.resolveWaitingQueue();
   }
 
   static async waitReady() {
-    // initialize the extension is not already been initialized.
+    // initialize the extension if is not already initialized.
     if (LifeCycle.state === 'notInitialized') {
       LifeCycle.initialize();
     }
