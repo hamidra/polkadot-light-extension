@@ -1,20 +1,9 @@
 import { PROVIDER_NAME, providerMessageHandler } from 'core';
-import { initStorage } from 'storage';
 
-let state: 'notInitialized' | 'initializing' | 'initialized' = 'notInitialized';
+import { LifeCycle } from './lifecycle';
 
-async function initialize() {
-  // Initialize storage
-  state = 'initializing';
-  await initStorage();
-  state = 'initialized';
-}
-
-initialize();
-
-export function isReady() {
-  return state === 'initialized';
-}
+// initialize
+LifeCycle.initialize();
 
 chrome.runtime.onInstalled.addListener((details) => {
   const { reason, previousVersion } = details;
@@ -30,8 +19,9 @@ chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
       const id = rpcRequests.id;
       const type = rpcRequests.message.type;
       const request = rpcRequests.message;
-
-      providerMessageHandler(request)
+      // handle the requests when extension is Ready.
+      LifeCycle.waitReady()
+        .then(() => providerMessageHandler(request))
         .then((response) => {
           const rpcResponse = { id, message: { type, data: response } };
           port.postMessage(rpcResponse);

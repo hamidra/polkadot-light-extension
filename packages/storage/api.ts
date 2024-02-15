@@ -18,6 +18,9 @@ const initStorage = async (): Promise<void> => {
     store: new AccountsStore(),
     type: 'sr25519',
   });
+  // There is an issue with ui-keyring, the accounts are not yet loaded here,
+  // This sleep is set to give it some time to load.
+  await new Promise((awake) => setTimeout(awake, 50));
   console.info('STORAGE::INITIALIZED');
 };
 
